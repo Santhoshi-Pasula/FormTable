@@ -1,0 +1,27 @@
+.App{
+    margin: 3% 10%;
+    width: 80%;
+    .formdetails{
+        display: grid;
+        grid-template-columns: 30% 30%;
+        column-gap: 5%;
+       
+    }
+    .submitbtn{
+       
+        margin-left: 17rem;
+        .ant-btn{
+            width: 12rem;
+        }
+    }
+}
+.table{
+    margin-top: 3rem;
+    .ant-table{
+        .ant-table-tbody > tr > td{
+            .ant-btn{
+                margin-left: 1rem;
+            }
+        }
+    }
+}

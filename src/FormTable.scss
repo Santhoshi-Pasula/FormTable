@@ -1,0 +1,39 @@
+.Formtable{
+    margin: 3% 5%;
+    h3{
+        text-align: center
+    };
+    .event_info{
+        justify-content: center;
+        display: grid;
+        grid-template-columns: 20% 20%;
+        column-gap: 3%;
+        row-gap: 1rem;
+       
+        .ant-form-item-label{
+            text-align: left;
+        }
+        .ant-calendar-picker{
+            width: 100%;
+        }
+       
+    }
+    .submitbtn{
+        margin-top: 2rem;
+        text-align: center;
+        .ant-btn{
+            width: 20%;
+        }
+    }
+    .ant-table{
+        .anticon-edit{
+            font-size: 1.5rem;
+            color: green;
+        }
+        .anticon-delete{
+            margin-left: 1rem;
+            font-size: 1.5rem;
+            color: red;
+        }
+    }
+}

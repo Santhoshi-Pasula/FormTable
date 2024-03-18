@@ -1,0 +1,67 @@
+
+.app{
+  margin: 3% 0;
+  h3{
+    text-align: center;
+  }
+  .login_content{
+    text-align: center;
+    
+    .logininfo{
+      justify-content: center;
+      display: grid;
+      grid-template-columns: 30% 30%;
+      column-gap: 3%;
+      label{
+       // text-align: left;
+      }
+    }
+    .ant-btn{
+      margin-top: 2rem;
+    }
+  }
+  .Formpage{
+    margin: 3% 3%;
+    
+    h3{
+        font-size: 1rem;
+        text-align: center;
+    }
+  .content{
+    justify-content: center;
+    display: grid;
+    grid-template-columns: 25% 25%;
+    column-gap: 3%;
+    row-gap: 2rem;
+    label{
+        text-align: left;
+    }
+    .ant-select{
+        width: 100%;
+    }
+    .ant-picker{
+        width: 100%;
+    }
+  }
+  .submitbtn{
+    margin-top: 2rem;
+    text-align: center;
+  }
+}
+.FetchData{
+  margin: 3% 10%;
+  .ant-form-item{
+    margin-bottom: 0;
+  }
+
+  .ant-table-tbody>tr>td {
+    font-size: var(--text-16);
+    font-weight: 400;
+    color: var(--black-twelve);
+    .ant-btn{
+      margin-left: 0.5rem;
+    }
+  }
+}
+}
+

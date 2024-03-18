@@ -1,0 +1,20 @@
+.cartapp {
+    margin: 3% 3%;
+    .cart_details {
+        display: grid;
+        grid-template-columns: 30% 30%;
+        column-gap: 3%;
+        row-gap: 1.5rem;
+        justify-content: center;
+        .ant-form-item{
+            margin-bottom: 0;
+        }
+    }
+    .submitbtn {
+        text-align: center;
+        margin-top: 2rem;
+        .ant-btn {
+            width: 9rem;
+        }
+    }
+}
