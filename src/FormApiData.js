@@ -94,16 +94,6 @@ const FormApiData = () => {
                 });
                 setData(updatedData);
                 message.success('User updated successfully');
-    
-               
-                setEditData(false);
-                setSelectedUser(null);
-                setFormData({
-                    name: '',
-                    email: '',
-                    username: '',
-                    website: ''
-                });
             })
             .catch(error => {
                 console.error('Error updating user:', error);
@@ -111,12 +101,6 @@ const FormApiData = () => {
             });
     };
     
-
-
-
-   
-
-
     const handleEdit = (userId) => {
         setFormData(selectedUser); 
         setEditData(true); 
@@ -125,9 +109,6 @@ const FormApiData = () => {
         // setFormData(selectedUserData);
     };
     
-
-
-
     const columns = [
         {
             title: 'ID',
@@ -169,7 +150,7 @@ const FormApiData = () => {
 
     return (
         <div className='FetchData'>
-            <h3>Fetch data from API in React </h3>
+            <h3>Fetch data from jsonplaceholder dummy API in React </h3>
 
             <Form >
                 <div className='formpage'>
