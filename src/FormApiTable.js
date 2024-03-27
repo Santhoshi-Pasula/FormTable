@@ -1,84 +1,82 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Button, Input, Table, message, Form } from 'antd';
+import { Button, Table, message, Form, Input, DatePicker } from 'antd';
+import moment from 'moment';
 import './App.scss';
 
 const FormApiTable = () => {
     const [data, setData] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
-    const [editData, setEditData] = useState(false);
+    const [editData, setEditData] = useState(false)
     const [formData, setFormData] = useState({
-        name: '',
+        //id: '',
+        firstName: '',
+        lastName: '',
         email: '',
+        phone: '',
+        DOB: '',
         username: '',
-        website: ''
+        age: ''
     });
 
     useEffect(() => {
-        axios.get('https://jsonplaceholder.typicode.com/users')
-            .then(res => setData(res.data))
-            .catch(err => console.log(err));
+        const getUsers = async () => {
+            try {
+                const response = await axios.get('http://localhost:8081/api/users/v1.0/getUsers');
+                setData(response.data.data);
+            } catch (error) {
+                console.error('Error fetching users:', error);
+            }
+        };
+        getUsers();
     }, []);
 
-    const getUser = (userId) => {
-        axios.get(`https://jsonplaceholder.typicode.com/users/${userId}`)
+    const getUser = (_id) => {
+        axios.get(`http://localhost:8081/api/users/v1.0/getUsersById/${_id}`)
             .then(res => {
-                setSelectedUser(res.data);
-                setFormData(res.data); // Populate form data with selected user's data
-                setEditData(true); // Enable edit mode
+                setSelectedUser(res.data.data);
+                setFormData(res.data.data);
+                setEditData(true);
             })
             .catch(err => console.log(err));
     };
 
-    const deleteUser = (userId) => {
-        axios.delete(`https://jsonplaceholder.typicode.com/users/${userId}`)
+    const deleteUser = (_id) => {
+
+        axios.delete(`http://localhost:8081/api/users/v1.0/deleteUser/${_id}`)
             .then(res => {
-                setData(data.filter(user => user.id !== userId));
+                setData(data.filter(user => user._id !== _id));
                 setSelectedUser(null);
                 message.success('User deleted successfully');
             })
-            .catch(err => console.log(err));
-    };
 
+    };
     const handleChange = (e) => {
         const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const handleDatePickerChange = (date, dateString) => {
         setFormData({
             ...formData,
-            [name]: value
+            DOB: dateString ? dateString : null
         });
     };
 
-    const updateUser = () => {
-        axios.put(`https://jsonplaceholder.typicode.com/users/${selectedUser.id}`, formData)
-            .then(res => {
-                const updatedUser = res.data;
-                const updatedData = data.map(user => {
-                    if (user.id === selectedUser.id) {
-                        return updatedUser;
-                    }
-                    return user;
-                });
-                setData(updatedData);
-                message.success('User updated successfully');
-                setEditData(false);
-                setSelectedUser(null);
-            })
-            .catch(error => {
-                console.error('Error updating user:', error);
-                message.error('Failed to update user. Please try again.');
-            });
-    };
 
     const addUser = () => {
-        axios.post('https://jsonplaceholder.typicode.com/users', formData)
+        axios.post('http://localhost:8081/api/users/v1.0/createUser', formData)
             .then(res => {
-                const newUser = res.data;
+                const newUser = res.data.data;
                 setData(prevData => [...prevData, newUser]);
                 setFormData({
-                    name: '',
+                    firstName: '',
+                    lastName: '',
                     email: '',
                     username: '',
-                    website: ''
+                    age: '',
+                    DOB:'',
+                    phone:''
                 });
                 message.success('User added successfully');
             })
@@ -88,20 +86,40 @@ const FormApiTable = () => {
             });
     };
 
-    const handleEdit = (userId) => {
-        getUser(userId);
+    const updateUser = async () => {
+        try {
+            const response = await axios.put(`http://localhost:8081/api/users/v1.0/updateUser/${selectedUser._id}`, formData);
+            const updatedUser = response.data.response;
+            setData(prevData => prevData.map(user => user._id === selectedUser._id ? updatedUser : user));
+            message.success('User updated successfully');
+        } catch (error) {
+            console.error('Error updating user:', error);
+            message.error('Failed to update user. Please try again.');
+        }
+    };
+
+    const handleEdit = (_id) => {
+        setEditData(true);
+        setFormData(selectedUser)
+        getUser(_id);
+
     };
 
     const columns = [
+        // {
+        //     title: 'ID',
+        //     dataIndex: '_id',
+        //     key: '_id'
+        // },
         {
-            title: 'ID',
-            dataIndex: 'id',
-            key: 'id'
+            title: 'First Name',
+            dataIndex: 'firstName',
+            key: 'firstName'
         },
         {
-            title: 'Name',
-            dataIndex: 'name',
-            key: 'name'
+            title: 'Last Name',
+            dataIndex: 'lastName',
+            key: 'lastName'
         },
         {
             title: 'Email',
@@ -109,68 +127,116 @@ const FormApiTable = () => {
             key: 'email'
         },
         {
+            title: 'Phone number',
+            dataIndex: 'phone',
+            key: 'phone'
+        },
+        {
+            title: 'DOB',
+            dataIndex: 'DOB',
+            key: 'DOB'
+        },
+        {
             title: 'Username',
             dataIndex: 'username',
             key: 'username'
         },
         {
-            title: 'Website',
-            dataIndex: 'website',
-            key: 'website'
+            title: 'Age',
+            dataIndex: 'age',
+            key: 'age'
         },
         {
             title: 'Actions',
             key: 'actions',
             render: (text, record) => (
-                <>
-                    <Button onClick={() => getUser(record.id)}>Get User</Button>
-                    <Button onClick={() => deleteUser(record.id)}>Delete User</Button>
-                    <Button onClick={() => handleEdit(record.id)}>Edit</Button>
-                </>
+                <div>
+                    <Button onClick={() => getUser(record?._id)}>Get User</Button>
+                    <Button onClick={() => deleteUser(record?._id)}>Delete User</Button>
+                    <Button onClick={() => handleEdit(record?._id)}>Edit</Button>
+                </div>
             ),
         },
     ];
 
     return (
         <div className='FetchData'>
-            <h3>Fetch data from API in React </h3>
-            <Form>
+            <h3>Fetch data from API in React</h3>
+
+            <Form >
                 <div className='formpage'>
+                    {/* <div>
+                        <Form.Item label="Id">
+
+                            <Input name="_id" placeholder="id" value={formData?._id} onChange={handleChange} />
+                        </Form.Item>
+                    </div> */}
                     <div>
-                        <Form.Item label="Name">
-                            <Input name="name" placeholder="Name" value={formData.name} onChange={handleChange} />
+                        <Form.Item label="First Name">
+
+                            <Input name="firstName" placeholder="Name" value={formData?.firstName} onChange={handleChange} />
+                        </Form.Item>
+                    </div>
+                    <div>
+                        <Form.Item label="Last Name">
+
+                            <Input name="lastName" placeholder="last name" value={formData?.lastName} onChange={handleChange} />
                         </Form.Item>
                     </div>
                     <div>
                         <Form.Item label="Email">
-                            <Input name="email" placeholder="Email" value={formData.email} onChange={handleChange} />
+
+                            <Input name="email" placeholder="Email" value={formData?.email} onChange={handleChange} />
                         </Form.Item>
                     </div>
                     <div>
                         <Form.Item label="Username">
-                            <Input name="username" placeholder="Username" value={formData.username} onChange={handleChange} />
+
+                            <Input name="username" placeholder="Username" value={formData?.username} onChange={handleChange} />
                         </Form.Item>
                     </div>
                     <div>
-                        <Form.Item label="Website">
-                            <Input name="website" placeholder="Website" value={formData.website} onChange={handleChange} />
+                        <Form.Item label="Age">
+
+                            <Input name="age" placeholder="age" value={formData?.age} onChange={handleChange} />
                         </Form.Item>
                     </div>
-                    <Form.Item>
-                    <div className='addbtn'>
-                            <Button type="primary" onClick={editData ? updateUser : addUser} >
-                                {editData ? 'Update user' : 'Add user'}
-                            </Button>
-                        </div>
-                    </Form.Item>
+                    <div>
+                        <Form.Item label="DoB">
+
+                            <DatePicker name="DOB" placeholder="DOB" value={formData?.DOB ? moment(formData.DOB, 'YYYY-MM-DD') : null} onChange={handleDatePickerChange} />
+
+
+                        </Form.Item>
+                    </div>
+                    <div>
+                        <Form.Item label="Phone number">
+
+                            <Input name="phone" placeholder="phone" value={formData?.phone} onChange={handleChange} />
+                        </Form.Item>
+                    </div>
+
                 </div>
+                <Form.Item>
+
+                    <div className='addbtn'>
+                        <Button type="primary" onClick={editData ? updateUser : addUser} >
+                            {editData ? 'Update user' : 'Add user'}
+                        </Button>
+                    </div>
+
+                </Form.Item>
+
             </Form>
+
             <Table
                 columns={columns}
                 dataSource={data}
                 pagination={{ pageSize: 6, size: 'small' }}
-                
+                rowKey="_id"
             />
+
+            
         </div>
     );
 };

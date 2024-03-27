@@ -28,8 +28,8 @@ const FormApiData = () => {
         axios.get(`https://jsonplaceholder.typicode.com/users/${userId}`)
             .then(res => {
                 setSelectedUser(res.data);
-                setFormData(res.data); 
-                setEditData(true); 
+                // setFormData(res.data); 
+                // setEditData(true); 
             })
             .catch(err => console.log(err));
     };
@@ -81,12 +81,7 @@ const FormApiData = () => {
     };
     
     
-    
-    
-
-    
-
-    const updateUser = () => {
+   const updateUser = () => {
         axios.put(`https://jsonplaceholder.typicode.com/users/${selectedUser.id}`, formData)
             .then(res => {
                 
@@ -123,7 +118,8 @@ const FormApiData = () => {
 
 
     const handleEdit = (userId) => {
-        //setEditData(true);
+        setFormData(selectedUser); 
+        setEditData(true); 
         getUser(userId);
         // const selectedUserData = data.find(user => user.id === userId);
         // setFormData(selectedUserData);

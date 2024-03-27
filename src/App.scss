@@ -1,65 +1,121 @@
-
-.app{
+.app {
   margin: 3% 0;
-  h3{
+  h3 {
     text-align: center;
   }
-  .login_content{
+  h1{
     text-align: center;
-    
-    .logininfo{
+  }
+  h2{
+    text-align: center;
+  }
+  .login_content {
+    text-align: center;
+
+    .logininfo {
       justify-content: center;
       display: grid;
       grid-template-columns: 30% 30%;
       column-gap: 3%;
-    
     }
-    .ant-btn{
+    .ant-btn {
       margin-top: 2rem;
     }
   }
-  .Formpage{
+  .Formpage {
     margin: 3% 3%;
-    
-    h3{
-        font-size: 1rem;
-        text-align: center;
+
+    h3 {
+      font-size: 1rem;
+      text-align: center;
     }
-  .content{
-    justify-content: center;
-    display: grid;
-    grid-template-columns: 25% 25%;
-    column-gap: 3%;
-    row-gap: 2rem;
-    label{
+    .content {
+      justify-content: center;
+      display: grid;
+      grid-template-columns: 25% 25%;
+      column-gap: 3%;
+      row-gap: 2rem;
+      label {
         text-align: left;
-    }
-    .ant-select{
+      }
+      .ant-select {
         width: 100%;
-    }
-    .ant-picker{
+      }
+      .ant-picker {
         width: 100%;
+      }
+    }
+    .submitbtn {
+      margin-top: 2rem;
+      text-align: center;
     }
   }
-  .submitbtn{
-    margin-top: 2rem;
-    text-align: center;
-  }
-}
-.FetchData{
-  margin: 3% 10%;
-  .ant-form-item{
-    margin-bottom: 0;
-  }
+  .FetchData {
+    margin: 3% 10%;
+    .formpage {
+      justify-content: center;
+      display: grid;
+      grid-template-columns: 25% 25%;
+      column-gap: 3%;
+      .ant-form-item {
+        margin-bottom: 0.5rem;
+        .ant-form-item-label {
+          line-height: 1.5;
+        }
+      }
+      .ant-calendar-picker {
+        width: 100%;
+      }
+    }
+    .addbtn {
+      text-align: center;
+      margin-top: 0.5rem;
+      .ant-btn {
+        width: 30%;
+      }
+    }
+    .ant-table {
+      margin: 3%;
+    }
+    .ant-form-item {
+      margin-bottom: 0;
+    }
 
-  .ant-table-tbody>tr>td {
-    font-size: var(--text-16);
-    font-weight: 400;
-    color: var(--black-twelve);
-    .ant-btn{
-      margin-left: 0.5rem;
+    .ant-table-tbody > tr > td {
+      font-size: var(--text-16);
+      font-weight: 400;
+      color: var(--black-twelve);
+      .ant-btn {
+        margin-left: 0.5rem;
+        
+      }
+     
+    }
+   
+  }
+  
+}
+.ant-modal-confirm {
+  .ant-modal-body {
+    //background-color: red;
+    .ant-modal-confirm-body {
+      .anticon {
+        color: #faad14;
+        display: none;
+      }
+      .signup_page{
+        //background-color: red;
+        .userform{
+        
+          .ant-form-item{
+            margin-bottom: 0;
+            .ant-form-item-label{
+              line-height: 1.5;
+            }
+          }
+        
+        }
+      }
     }
   }
 }
-}
-

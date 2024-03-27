@@ -186,13 +186,13 @@ const FormTable = () => {
                             />
                         </div>
                     </div>
-                    <div>
+                    {/* <div>
                         <label>registration online/offline</label>
                         <Switch checkedChildren="online" unCheckedChildren="offline"
                              checked={inputData.status === 'online'}
                              onChange={handleSwitchChange}
                         />
-                    </div>
+                    </div> */}
                 </div>
                 {/* <div className='submitbtn'>
                     <Button type='primary' htmlType='submit'>Submit</Button>

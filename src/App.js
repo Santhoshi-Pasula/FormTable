@@ -15,16 +15,20 @@ import Carts from './Carts'
 import CartApiData from './CartApiData'
 import FormApiData from './FormApiData'
 import FormApiTable from './FormApiTable'
+import  FormContextApi from './FormContextApi'
+import FormTableData from './FormTable'
 
 
 const App = () => {
   return (
     <div className='app'>
-      <FormApiData/>
+      <FormApiTable/>
+      <FormContextApi/>
+      {/* <FormApiData/> */}
       {/* <CartApiData/> */}
       
-      <ContextHook/>
-      {/* <Carts/>
+      {/* <ContextHook/>
+      <Carts/>
       <Users/>
       <Form/>
       <Cart/>
@@ -35,11 +39,11 @@ const App = () => {
       <UseRefHook/>
       <CallbackHook/>
       <UseMemoHook/>
+      <FormTableData/>
       
       
-      
-      <TablePage/> */}
-      
+      <TablePage/>
+       */}
     </div>
   )
 }
