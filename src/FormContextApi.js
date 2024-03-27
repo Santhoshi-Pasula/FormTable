@@ -12,12 +12,7 @@ const FormContextApi = () => {
   return (
     <UserProvider>
       <h3>useContext with CRUD operations</h3>
-      {/* <div>
-        <h1>Form page</h1>
-        <UserForm />
-        <h3>user table</h3>
-        <Table />
-      </div> */}
+      
        <div>
         <h3>User Form</h3>
         <UserForm />
